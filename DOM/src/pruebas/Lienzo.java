@@ -73,6 +73,8 @@ public class Lienzo extends javax.swing.JFrame {
         antpos = p;
     }
     
+    void iWantToDie
+    
     /**
      * @param args the command line arguments
      */
@@ -103,7 +105,10 @@ public class Lienzo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Lienzo().setVisible(true);
+                Lienzo r= new Lienzo();
+                r.setVisible(true);
+                
+                r.iWantToDie();
             }
         });
     }
