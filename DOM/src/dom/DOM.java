@@ -20,7 +20,7 @@ public class DOM {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws MalformedURLException, IOException {
+    public static void main(String[] args) {
         
         pruebas.Lienzo.main(args);
         //pruebas.webScrapper.main(args);
@@ -31,6 +31,7 @@ public class DOM {
         String txt;
         while ((txt = bs.readLine()) != null) System.out.print(txt.contains("<") ||txt.contains("</")||txt.contains("/>")? txt+"\n": "\n");
         */
+        
         
     }
     

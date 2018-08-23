@@ -9,6 +9,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+
 /**
  *
  * @author rpayan
@@ -73,7 +80,45 @@ public class Lienzo extends javax.swing.JFrame {
         antpos = p;
     }
     
-    void iWantToDie
+    void iWantToDie()
+    {
+        try 
+        {
+            URL url = new URL("https://www.eltiempo.com");
+            BufferedReader bs = new BufferedReader(new InputStreamReader(url.openStream()));
+            String txt;
+            while ((txt = bs.readLine()) != null)
+            {
+                if (txt.startsWith("</")) 
+                {
+                    System.out.println(txt);
+                }
+                else if(txt.endsWith("/>"))
+                {
+                    System.out.println(txt.substring(0,txt.indexOf(">")+1)+" "+txt.substring(txt.lastIndexOf("<")));
+                }
+                else if (txt.startsWith("<")) 
+                {
+                    if (txt.contains(" ")) 
+                    {
+                        System.out.println(txt.substring(0,txt.indexOf(">")+1)+" "+txt.substring(txt.length()-1));
+                    }
+                    else
+                    {
+                        System.out.println(txt);
+                    }
+                    
+                }
+            }
+            
+        } 
+        catch (Exception e) 
+        {
+            System.out.println("error en carga web");
+            e.printStackTrace();
+        }
+        
+    }
     
     /**
      * @param args the command line arguments
