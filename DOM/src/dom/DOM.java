@@ -6,6 +6,8 @@
 package dom;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -23,16 +25,67 @@ public class DOM {
     public static void main(String[] args) {
         
         pruebas.Lienzo.main(args);
-        //pruebas.webScrapper.main(args);
+
         
-        /*
-        URL url = new URL("https://www.eltiempo.com");
-        BufferedReader bs = new BufferedReader(new InputStreamReader(url.openStream()));
-        String txt;
-        while ((txt = bs.readLine()) != null) System.out.print(txt.contains("<") ||txt.contains("</")||txt.contains("/>")? txt+"\n": "\n");
-        */
         
         
     }
+    
+    public static void getCode(String urlstr, String FileName){
+        try{
+            java.net.URL url = new java.net.URL(urlstr);
+            BufferedReader bs = new BufferedReader(new java.io.InputStreamReader(url.openStream()));
+            BufferedWriter doc = new BufferedWriter(new FileWriter(FileName));
+            String txt;
+            while ((txt = bs.readLine()) != null){
+                while(txt.contains(">"))
+                {
+                    if(!txt.startsWith("<")){
+                        txt = txt.substring(txt.indexOf("<"));
+                    }
+                    doc.write(txt.substring(0,txt.indexOf(">")+1));
+                    //doc.write(get_label(txt.substring(0,txt.indexOf(">")+1)));
+                    txt = txt.substring(txt.indexOf(">")+1);
+                    doc.newLine();
+                }
+            }
+            bs.close();
+            doc.close();
+        }
+        catch(java.net.MalformedURLException mue){
+            System.out.println("Error de formato de url");
+            mue.printStackTrace();
+        }
+        catch(java.io.IOException ioe){
+            System.out.println("Error de archivo");
+            ioe.printStackTrace();
+        }
+        catch(Throwable t)
+        {
+            System.out.println("no fué posible establecer la conexión");
+            t.printStackTrace();
+        }
+    }
+    
+    public static String get_label(String txt){
+        if(txt.contains("   ")){
+            txt.replace("   "," ");
+        }
+        
+        if( (!(txt.contains(" "))) || txt.startsWith("</") ){
+            return txt.substring(1,txt.length()-1);
+        }
+        
+        //boolean retpar = txt.endsWith("/>");
+        txt = txt.substring(0,txt.indexOf(" "));
+        
+        while(txt.startsWith(" ")){
+            txt = txt.substring(1);
+        }
+        
+        //return (retpar)? txt.substring(1)+"/" : txt.substring(1);
+        return txt.substring(1)+"/";
+    }
+
     
 }
