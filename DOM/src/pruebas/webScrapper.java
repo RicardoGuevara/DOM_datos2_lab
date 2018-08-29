@@ -17,7 +17,7 @@ public class webScrapper {
 
 	public static void main(String[] args)  {
 		try {
-			URL my_url = new URL("https://www.eltiempo.com");
+			URL my_url = new URL("https://www.google.com");
 			
                         rastrear(my_url);
 		} catch (Exception ex) {

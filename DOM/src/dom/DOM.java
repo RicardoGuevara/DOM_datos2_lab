@@ -24,10 +24,7 @@ public class DOM {
      */
     public static void main(String[] args) {
         
-        pruebas.Lienzo.main(args);
-
-        
-        
+        UserGUI.main(args);
         
     }
     
@@ -41,10 +38,11 @@ public class DOM {
                 while(txt.contains(">"))
                 {
                     if(!txt.startsWith("<")){
+                        if(txt.startsWith("<=")) txt = txt.substring(1);
                         txt = txt.substring(txt.indexOf("<"));
                     }
-                    doc.write(txt.substring(0,txt.indexOf(">")+1));
-                    //doc.write(get_label(txt.substring(0,txt.indexOf(">")+1)));
+                    //doc.write(txt.substring(0,txt.indexOf(">")+1));
+                    doc.write(get_label(txt.substring(0,txt.indexOf(">")+1)));
                     txt = txt.substring(txt.indexOf(">")+1);
                     doc.newLine();
                 }
@@ -76,7 +74,7 @@ public class DOM {
             return txt.substring(1,txt.length()-1);
         }
         
-        //boolean retpar = txt.endsWith("/>");
+        boolean retpar = txt.endsWith("/>");
         txt = txt.substring(0,txt.indexOf(" "));
         
         while(txt.startsWith(" ")){
@@ -84,8 +82,37 @@ public class DOM {
         }
         
         //return (retpar)? txt.substring(1)+"/" : txt.substring(1);
-        return txt.substring(1)+"/";
+        if(txt.contains("meta") || txt.contains("link") || txt.contains("img")){
+            return txt.substring(1)+"/";    
+        }
+        return txt.substring(1);
     }
-
+    
+    public static void rewrite(String input_file, String output_file){
+        try{
+            BufferedReader bs = new BufferedReader(new java.io.FileReader(input_file));
+            BufferedWriter doc = new BufferedWriter(new FileWriter(output_file));
+            String txt;
+            while ((txt = bs.readLine()) != null){
+                if(txt.endsWith("/")){
+                    doc.write(txt.substring(0,txt.length()-1)); 
+                    doc.newLine();
+                    doc.write("/"+txt.substring(0,txt.length()-1)); 
+                    doc.newLine();
+                }
+                else{
+                    doc.write(txt);
+                    doc.newLine();
+                }
+            }
+            bs.close();
+            doc.close();
+        }
+        catch(Exception e){
+            System.out.println("Error de archivo:");
+            e.printStackTrace();
+        }
+    }
+    
     
 }
