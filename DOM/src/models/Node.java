@@ -39,15 +39,17 @@ public class Node {
 //METHODS_______________________________________________________________________    
     
     public void add(Node node){
+        node.setNivel(this.getNivel()+1);
+        node.setHorizontal(this.subNodes.size());
         this.subNodes.add(node);
     }
     
     public void add(String ob){
-        this.subNodes.add(new Node(ob));
+        add(new Node(ob));
     }
     
     public void add(Object ob){
-        this.subNodes.add(new Node(ob.toString()));
+        add(new Node(ob.toString()));
     }
     
 //ATRIB_________________________________________________________________________
@@ -55,7 +57,35 @@ public class Node {
     public ArrayList<Node> subNodes;
     private boolean open_state;
     private String label_name;
+    private int nivel=0, horizontal=0;
 
+    public ArrayList<Node> getSubNodes() {
+        return subNodes;
+    }
+
+    public void setSubNodes(ArrayList<Node> subNodes) {
+        this.subNodes = subNodes;
+    }
+
+    public int getHorizontal() {
+        return horizontal;
+    }
+
+    public void setHorizontal(int horizontal) {
+        this.horizontal = horizontal;
+    }
+    
+    
+    
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+    
+    
     public boolean isOpen_state() {
         return open_state;
     }

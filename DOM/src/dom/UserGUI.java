@@ -5,6 +5,9 @@
  */
 package dom;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import models.Node;
+import models.Tree;
 
 /**
  *
@@ -181,6 +186,14 @@ public class UserGUI extends javax.swing.JFrame {
         run_0.run();
         run_1.run();
         run_2.run();
+        try 
+        {
+            Thread.sleep(100); // wait jtree repaint before tree-draw repainting
+        }
+        catch (InterruptedException ex) 
+        {
+            System.out.println("error in waiting :"); ex.printStackTrace();
+        }
         run_3.run();
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -256,7 +269,7 @@ public class UserGUI extends javax.swing.JFrame {
     private void fill_original() throws java.io.IOException
     {
         labels_original.setText("");
-        BufferedReader bs = new BufferedReader(new java.io.FileReader("pagina"));
+        BufferedReader bs = new BufferedReader(new java.io.FileReader("codigo_fuente"));
         String txt;
         while((txt= bs.readLine()) !=null) labels_original.append(txt+"\n"); 
         bs.close();
@@ -277,13 +290,65 @@ public class UserGUI extends javax.swing.JFrame {
         kill_me_pls.setBounds(tree_panel.getBounds());
         kill_me_pls.setVisible(true);
         tree_panel.add(kill_me_pls);
-        tree_panel.revalidate();
-        tree_panel.repaint();
     }
+    
+    int grado_maximo,
+        altura_raiz;
     
     private void draw_tree() throws java.io.IOException
     {
-        System.out.println("dibujando arbol");
+        //graphTree.revalidate();
+        //graphTree.repaint();
+        grado_maximo = tree.maxGrado();
+        altura_raiz = tree.altura();
+        
+        Tree.m_g = 0; // restaurar valor de grado máximo estático
+        
+        // -> debug
+            System.out.println("\naltura: "+altura_raiz+"\ngrado: "+grado_maximo);
+        // <- debug
+        
+        recursiveDraw(tree.getRoot());
+        
+    }
+    
+    Point antpos;
+    private void recursiveDraw(Node node)
+    {
+        int y= (graphTree.getWidth()/altura_raiz)*node.getNivel(),
+            x= (graphTree.getHeight()/grado_maximo)*node.getHorizontal();
+        
+        System.out.println("posicion del nodo: "+node.getLabel_name()+" "+x+" , "+y);
+        
+        Point p = new Point(x,y);
+        
+        draw_point(p);
+        for (Node subNode : node.subNodes) {
+            if(antpos != null)
+            {
+                draw_line(p);    
+            }
+            recursiveDraw(subNode);
+        }
+        antpos= p;
+    }
+    
+    int diameter = 10;
+    
+    void draw_point (Point p)
+    {
+        Graphics g = graphTree.getGraphics();
+        g.setColor(Color.red);
+        g.fillOval((int)p.getX(), (int)p.getY(), diameter, diameter);
+        //this.repaint();
+    }
+    
+    void draw_line (Point p)
+    {
+        Graphics g = graphTree.getGraphics();
+        g.setColor(Color.BLUE);
+        g.drawLine((int)p.getX()+diameter/2, (int)p.getY()+diameter/2, (int)antpos.getX()+diameter/2, (int)antpos.getY()+diameter/2);
+        //this.repaint();
     }
     
     private DefaultMutableTreeNode get_tree_base(java.io.File file)

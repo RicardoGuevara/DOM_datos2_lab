@@ -31,16 +31,17 @@ public class DOM {
     }
     
     public static Tree default_extract(String uri){
-        getCode(uri,"pagina");
+        getCode(uri,"pagina","codigo_fuente");
         rewrite("pagina","paginareal");
         return Tree.parseTree("paginareal");
     }
     
-    public static void getCode(String urlstr, String FileName){
+    public static void getCode(String urlstr, String FileName, String cf){
         try{
             java.net.URL url = new java.net.URL(urlstr);
             BufferedReader bs = new BufferedReader(new java.io.InputStreamReader(url.openStream()));
             BufferedWriter doc = new BufferedWriter(new FileWriter(FileName));
+            BufferedWriter fuente = new BufferedWriter(new FileWriter(cf));
             String txt;
             while ((txt = bs.readLine()) != null){
                 while(txt.contains(">"))
@@ -49,14 +50,16 @@ public class DOM {
                         if(txt.startsWith("<=")) txt = txt.substring(1);
                         txt = txt.substring(txt.indexOf("<"));
                     }
-                    //doc.write(txt.substring(0,txt.indexOf(">")+1));
+                    fuente.write(txt.substring(0,txt.indexOf(">")+1));
                     doc.write(get_label(txt.substring(0,txt.indexOf(">")+1)));
                     txt = txt.substring(txt.indexOf(">")+1);
                     doc.newLine();
+                    fuente.newLine();
                 }
             }
             bs.close();
             doc.close();
+            fuente.close();
         }
         catch(java.net.MalformedURLException mue){
             System.out.println("Error de formato de url");

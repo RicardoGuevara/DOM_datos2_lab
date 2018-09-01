@@ -88,10 +88,62 @@ public class Tree {
         return new Tree(aperturas.get(0));
     } 
     
+    public int altura()
+    {
+        return altura(this.root);
+    }
+    
+    private int altura(Node node)
+    {
+        if(node == null)
+        {
+            return -1;
+        }
+        
+        if(node.subNodes == null || node.subNodes.isEmpty())
+        {
+            return 0;
+        }
+        
+        int control=-2,temp;
+        for (Node subNode : node.subNodes) 
+        {
+            temp=altura(subNode);
+            if (temp>control) {
+                control= temp;
+            }
+        }
+        return 1+control;
+    }
+    
+    public int maxGrado()
+    {
+        maxGrado(this.root);
+        return m_g;
+    }
+    
+    public static int m_g=0;
+    private void maxGrado(Node node)
+    {
+        if(node.subNodes.size()>m_g) m_g = node.subNodes.size();
+        for (Node subNode : node.subNodes) 
+        {
+            maxGrado(subNode);
+        }
+    }
+    
 //ATRIB_________________________________________________________________________    
     
     private Node root;
 
+    public static int getM_g() {
+        return m_g;
+    }
+
+    public static void setM_g(int m_g) {
+        Tree.m_g = m_g;
+    }
+    
     public Node getRoot() {
         return root;
     }
