@@ -5,6 +5,14 @@
  */
 package dom;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+
 /**
  *
  * @author rick
@@ -27,51 +35,312 @@ public class UserGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        graphTree = new javax.swing.JPanel();
+        dns = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        labels_original = new javax.swing.JTextArea();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        labels_parsed = new javax.swing.JTextArea();
+        tree_panel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 505, Short.MAX_VALUE)
+        graphTree.setPreferredSize(new java.awt.Dimension(550, 550));
+
+        javax.swing.GroupLayout graphTreeLayout = new javax.swing.GroupLayout(graphTree);
+        graphTree.setLayout(graphTreeLayout);
+        graphTreeLayout.setHorizontalGroup(
+            graphTreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        graphTreeLayout.setVerticalGroup(
+            graphTreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 241, Short.MAX_VALUE)
+        jLabel1.setText("DNS / IP :");
+
+        jButton1.setText("vamos!");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        labels_original.setColumns(20);
+        labels_original.setRows(5);
+        labels_original.setPreferredSize(new java.awt.Dimension(271, 238));
+        jScrollPane3.setViewportView(labels_original);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 278, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 603, Short.MAX_VALUE)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 526, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab("Original", jPanel4);
+
+        labels_parsed.setColumns(20);
+        labels_parsed.setRows(5);
+        labels_parsed.setPreferredSize(new java.awt.Dimension(261, 238));
+        jScrollPane2.setViewportView(labels_parsed);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 278, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 526, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab("Gerarquía de etiquetas", jPanel3);
+
+        javax.swing.GroupLayout tree_panelLayout = new javax.swing.GroupLayout(tree_panel);
+        tree_panel.setLayout(tree_panelLayout);
+        tree_panelLayout.setHorizontalGroup(
+            tree_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 278, Short.MAX_VALUE)
+        );
+        tree_panelLayout.setVerticalGroup(
+            tree_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(dns)
+                .addGap(1, 1, 1)
+                .addComponent(jButton1))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tree_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(graphTree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(graphTree, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tree_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+        tree = DOM.default_extract(dns.getText());
+        run_0.run();
+        run_1.run();
+        run_2.run();
+        run_3.run();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    //THREADS
+    
+    Runnable run_0 = new Runnable() 
+        {
+            public void run() 
+            {
+                try 
+                {
+                    fill_original();
+                } 
+                catch (IOException ex) 
+                {
+                    System.out.println("error de archivo");
+                    ex.printStackTrace();
+                }
+            }
+        };
+    
+    Runnable run_1 = new Runnable() 
+        {
+            public void run() 
+            {
+                try 
+                {
+                    fill_labels();
+                } 
+                catch (IOException ex) 
+                {
+                    System.out.println("error de archivo");
+                    ex.printStackTrace();
+                }
+            }
+        };
+    
+    Runnable run_2 = new Runnable() 
+        {
+            public void run() 
+            {
+                try 
+                {
+                    fill_tree();
+                } 
+                catch (IOException ex) 
+                {
+                    System.out.println("error de archivo");
+                    ex.printStackTrace();
+                }
+            }
+        };
+    
+    Runnable run_3 = new Runnable() 
+        {
+            public void run() 
+            {
+                try 
+                {
+                    draw_tree();
+                } 
+                catch (IOException ex) 
+                {
+                    System.out.println("error de archivo");
+                    ex.printStackTrace();
+                }
+            }
+        };
+    
+    //METHODS___________________________________________________________________
+    
+    private void fill_original() throws java.io.IOException
+    {
+        labels_original.setText("");
+        BufferedReader bs = new BufferedReader(new java.io.FileReader("pagina"));
+        String txt;
+        while((txt= bs.readLine()) !=null) labels_original.append(txt+"\n"); 
+        bs.close();
+    }
+    
+    private void fill_labels() throws java.io.IOException
+    {
+        labels_parsed.setText("");
+        BufferedReader bs = new BufferedReader(new java.io.FileReader("paginareal"));
+        String txt;
+        while((txt= bs.readLine()) !=null) labels_parsed.append(txt+"\n"); 
+        bs.close();
+    }
+    
+    private void fill_tree() throws java.io.IOException
+    {
+        javax.swing.JTree kill_me_pls =new javax.swing.JTree(get_tree_base(new java.io.File("paginareal")));
+        kill_me_pls.setBounds(tree_panel.getBounds());
+        kill_me_pls.setVisible(true);
+        tree_panel.add(kill_me_pls);
+        tree_panel.revalidate();
+        tree_panel.repaint();
+    }
+    
+    private void draw_tree() throws java.io.IOException
+    {
+        System.out.println("dibujando arbol");
+    }
+    
+    private DefaultMutableTreeNode get_tree_base(java.io.File file)
+    {
+        ArrayList<DefaultMutableTreeNode> aperturas = new ArrayList<>();
+        //Node    root = new Node("root"),
+        //        temp;
+        //aperturas.add(root);
+        
+        try {
+            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file));
+            String txt;
+            while((txt = reader.readLine()) != null){
+                
+                System.out.println("2 lectura: "+txt);
+                
+                if(txt.contains("!doctype")|| txt.contains("br")|| txt.contains("nobr")){continue;}
+                if(txt.equals("html")){aperturas.add(new DefaultMutableTreeNode("html"));continue;}
+                if(txt.startsWith("/")){
+                    //temp = aperturas.remove(aperturas.size()-1);
+                    System.out.println("2 cierre "+aperturas.get(aperturas.size()-1));
+                    (aperturas.get(aperturas.size()-2)).add(aperturas.remove(aperturas.size()-1));
+                    
+                }
+                else{
+                    aperturas.add(new DefaultMutableTreeNode(txt));
+                    System.out.println("2 apertura "+aperturas.get(aperturas.size()-1));
+                }
+                System.out.println(aperturas);
+                //(new Tree(aperturas.get(aperturas.size()-1))).printTree();
+            }
+            reader.close();
+        } 
+        catch (java.io.IOException ioe) {
+            System.out.println("Error de archvo");
+            ioe.printStackTrace();
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            return aperturas.get(0);
+        }
+        catch (Exception e){
+            System.out.println("Error de ejecución:");
+            e.printStackTrace();
+        }
+        
+        while(aperturas.size()>1){
+            (aperturas.get(aperturas.size()-2)).add(aperturas.remove(aperturas.size()-1));
+        }
+        
+        return aperturas.get(0);
+    }
+    
+    
+    
+    //AUTOGENERADO______________________________________________________________
+    
     /**
      * @param args the command line arguments
      */
@@ -107,8 +376,20 @@ public class UserGUI extends javax.swing.JFrame {
         });
     }
 
+    public static models.Tree tree;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField dns;
+    private javax.swing.JPanel graphTree;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea labels_original;
+    private javax.swing.JTextArea labels_parsed;
+    private javax.swing.JPanel tree_panel;
     // End of variables declaration//GEN-END:variables
 }

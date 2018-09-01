@@ -55,7 +55,7 @@ public class Tree {
                 
                 System.out.println("lectura: "+txt);
                 
-                if(txt.contains("!doctype")){continue;}
+                if(txt.contains("!doctype")|| txt.contains("br")|| txt.contains("nobr")){continue;}
                 if(txt.equals("html")){aperturas.add(new Node("html"));continue;}
                 if(txt.startsWith("/")){
                     //temp = aperturas.remove(aperturas.size()-1);

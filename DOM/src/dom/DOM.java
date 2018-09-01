@@ -25,8 +25,8 @@ public class DOM {
      */
     public static void main(String[] args) {
         
-        //UserGUI.main(args);
-        default_extract("http://www.google.com").printTree();
+        //default_extract("http://www.google.com").printTree();
+        UserGUI.main(args);
         
     }
     
