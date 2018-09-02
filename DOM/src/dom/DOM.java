@@ -8,10 +8,7 @@ package dom;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
+import javax.swing.tree.DefaultMutableTreeNode;
 import models.Tree;
 
 /**
@@ -25,10 +22,24 @@ public class DOM {
      */
     public static void main(String[] args) {
         
+        //"file:///C:\Users\RICARDO\Desktop\DOM_datos2_lab\DOM\paginas de prueba\paginarealnofeik.html"
+        //default_extract("file:///C:/Users/RICARDO/Desktop/DOM_datos2_lab/DOM/paginas de prueba/paginarealnofeik.html").printTree();
         //default_extract("http://www.google.com").printTree();
         UserGUI.main(args);
         
     }
+    
+    // -> DEBUG METHOD
+
+        public static void debug(java.util.function.Function<Object,Object> sad)
+        {
+            if(true)
+            {
+            sad.apply(null);
+            }
+        }
+    
+    // <- DEBUG METHOD
     
     public static Tree default_extract(String uri){
         getCode(uri,"pagina","codigo_fuente");
@@ -105,6 +116,7 @@ public class DOM {
             BufferedWriter doc = new BufferedWriter(new FileWriter(output_file));
             String txt;
             while ((txt = bs.readLine()) != null){
+                
                 if(txt.endsWith("/")){
                     doc.write(txt.substring(0,txt.length()-1)); 
                     doc.newLine();

@@ -39,9 +39,10 @@ public class Node {
 //METHODS_______________________________________________________________________    
     
     public void add(Node node){
-        node.setNivel(this.getNivel()+1);
+        //node.setNivel(this.getNivel()+1);
         node.setHorizontal(this.subNodes.size());
         this.subNodes.add(node);
+        System.out.println("nivel / pos_grado "+node.getNivel()+" "+node.getHorizontal());
     }
     
     public void add(String ob){

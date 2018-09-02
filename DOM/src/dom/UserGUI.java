@@ -5,6 +5,7 @@
  */
 package dom;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -29,6 +30,7 @@ public class UserGUI extends javax.swing.JFrame {
      */
     public UserGUI() {
         initComponents();
+        dns.setText("file:///C:/Users/RICARDO/Desktop/DOM_datos2_lab/DOM/paginas de prueba/paginarealnofeik.html");
     }
 
     /**
@@ -183,6 +185,7 @@ public class UserGUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     
         tree = DOM.default_extract(dns.getText());
+        tree.printTree();
         run_0.run();
         run_1.run();
         run_2.run();
@@ -287,9 +290,13 @@ public class UserGUI extends javax.swing.JFrame {
     private void fill_tree() throws java.io.IOException
     {
         javax.swing.JTree kill_me_pls =new javax.swing.JTree(get_tree_base(new java.io.File("paginareal")));
-        kill_me_pls.setBounds(tree_panel.getBounds());
-        kill_me_pls.setVisible(true);
-        tree_panel.add(kill_me_pls);
+//        kill_me_pls.setBounds(tree_panel.getBounds());
+//        kill_me_pls.setVisible(true);
+//        tree_panel.add(kill_me_pls);
+            
+        tree_panel.add(new Arb_pane(kill_me_pls));
+        tree_panel.repaint();
+            
     }
     
     int grado_maximo,
@@ -308,29 +315,25 @@ public class UserGUI extends javax.swing.JFrame {
             System.out.println("\naltura: "+altura_raiz+"\ngrado: "+grado_maximo);
         // <- debug
         
-        recursiveDraw(tree.getRoot());
+        recursiveDraw(tree.getRoot(),new Point(0,0));
         
     }
     
-    Point antpos;
-    private void recursiveDraw(Node node)
+    private void recursiveDraw(Node node,Point ant)
     {
-        int y= (graphTree.getWidth()/altura_raiz)*node.getNivel(),
-            x= (graphTree.getHeight()/grado_maximo)*node.getHorizontal();
-        
+        int y= (graphTree.getHeight()/altura_raiz)*node.getNivel(), // error, siempre va a ser 0
+            x= (int) ((graphTree.getWidth()/(int)Math.pow(grado_maximo,node.getNivel()))*node.getHorizontal());
+        Point antpos;
         System.out.println("posicion del nodo: "+node.getLabel_name()+" "+x+" , "+y);
         
         Point p = new Point(x,y);
         
         draw_point(p);
         for (Node subNode : node.subNodes) {
-            if(antpos != null)
-            {
-                draw_line(p);    
-            }
-            recursiveDraw(subNode);
+            draw_line(p,ant);
+            recursiveDraw(subNode,p);
         }
-        antpos= p;
+        //antpos= p;
     }
     
     int diameter = 10;
@@ -343,7 +346,7 @@ public class UserGUI extends javax.swing.JFrame {
         //this.repaint();
     }
     
-    void draw_line (Point p)
+    void draw_line (Point p,Point antpos)
     {
         Graphics g = graphTree.getGraphics();
         g.setColor(Color.BLUE);
@@ -353,6 +356,7 @@ public class UserGUI extends javax.swing.JFrame {
     
     private DefaultMutableTreeNode get_tree_base(java.io.File file)
     {
+        System.out.println("generando jtree....");
         ArrayList<DefaultMutableTreeNode> aperturas = new ArrayList<>();
         //Node    root = new Node("root"),
         //        temp;
@@ -365,7 +369,7 @@ public class UserGUI extends javax.swing.JFrame {
                 
                 System.out.println("2 lectura: "+txt);
                 
-                if(txt.contains("!doctype")|| txt.contains("br")|| txt.contains("nobr")){continue;}
+                if(txt.contains("!DOCTYPE")||txt.contains("!doctype")|| txt.contains("br")|| txt.contains("nobr")){continue;}
                 if(txt.equals("html")){aperturas.add(new DefaultMutableTreeNode("html"));continue;}
                 if(txt.startsWith("/")){
                     //temp = aperturas.remove(aperturas.size()-1);
@@ -457,4 +461,17 @@ public class UserGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea labels_parsed;
     private javax.swing.JPanel tree_panel;
     // End of variables declaration//GEN-END:variables
+}
+
+class Arb_pane extends javax.swing.JPanel
+{
+    public Arb_pane(JTree arbol)
+    {
+        this.setBackground(Color.red);
+        setLayout(new BorderLayout());
+        arbol.setVisible(true);
+        add(arbol,BorderLayout.NORTH);
+        setVisible(true);
+        setBounds(0,0,100,100);
+    }
 }

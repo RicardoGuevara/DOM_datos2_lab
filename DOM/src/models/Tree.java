@@ -55,7 +55,7 @@ public class Tree {
                 
                 System.out.println("lectura: "+txt);
                 
-                if(txt.contains("!doctype")|| txt.contains("br")|| txt.contains("nobr")){continue;}
+                if(txt.contains("!DOCTYPE")||txt.contains("!doctype")|| txt.contains("br")|| txt.contains("nobr")){continue;}
                 if(txt.equals("html")){aperturas.add(new Node("html"));continue;}
                 if(txt.startsWith("/")){
                     //temp = aperturas.remove(aperturas.size()-1);
@@ -65,6 +65,7 @@ public class Tree {
                 }
                 else{
                     aperturas.add(new Node(txt));
+                    aperturas.get(aperturas.size()-1).setNivel(aperturas.size()-1);
                     System.out.println("apertura "+aperturas.get(aperturas.size()-1));
                 }
                 System.out.println(aperturas);
@@ -75,6 +76,10 @@ public class Tree {
         catch (java.io.IOException ioe) {
             System.out.println("Error de archvo");
             ioe.printStackTrace();
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            return new Tree(aperturas.get(0));
         }
         catch (Exception e){
             System.out.println("Error de ejecución:");
@@ -97,15 +102,15 @@ public class Tree {
     {
         if(node == null)
         {
-            return -1;
+            return 0;
         }
         
         if(node.subNodes == null || node.subNodes.isEmpty())
         {
-            return 0;
+            return 1;
         }
         
-        int control=-2,temp;
+        int control=-1,temp;
         for (Node subNode : node.subNodes) 
         {
             temp=altura(subNode);
