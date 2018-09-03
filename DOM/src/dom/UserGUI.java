@@ -33,9 +33,23 @@ public class UserGUI extends javax.swing.JFrame {
     public UserGUI() {
         initComponents();
         tree_panel.setBackground(Color.white);
-        dns.setText("file:///C:/Users/RICARDO/Desktop/DOM_datos2_lab/DOM/paginas de prueba/paginarealnofeik.html");
+        dns.setText(getDefaultTestText());
     }
 
+    private String getDefaultTestText()
+    {
+        try {
+            java.io.File file = new java.io.File("paginarealnofeik.html");
+            return "file://"+file.getAbsolutePath();
+        } catch (Exception e) 
+        {
+            System.out.println("Error de archivo");
+            e.printStackTrace();
+            return "no fué posible encontrar la página de test por defecto";
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -244,6 +258,7 @@ public class UserGUI extends javax.swing.JFrame {
             {
                 try 
                 {
+                    tree_panel.removeAll();
                     fill_tree();
                 } 
                 catch (IOException ex) 
@@ -317,6 +332,11 @@ public class UserGUI extends javax.swing.JFrame {
         // -> debug
             System.out.println("\naltura: "+altura_raiz+"\ngrado: "+grado_maximo);
         // <- debug
+        
+        
+        Graphics g = graphTree.getGraphics();
+        g.setColor(Color.white);
+        g.fillRect(graphTree.getX(),graphTree.getY(),graphTree.getWidth(),graphTree.getHeight());
         
         recursiveDraw(tree.getRoot(),new Point(0,0));
         

@@ -8,6 +8,7 @@ package dom;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import models.Tree;
 
@@ -22,18 +23,15 @@ public class DOM {
      */
     public static void main(String[] args) {
         
-        //"file:///C:\Users\RICARDO\Desktop\DOM_datos2_lab\DOM\paginas de prueba\paginarealnofeik.html"
-        //default_extract("file:///C:/Users/RICARDO/Desktop/DOM_datos2_lab/DOM/paginas de prueba/paginarealnofeik.html").printTree();
         //default_extract("http://www.google.com").printTree();
         UserGUI.main(args);
-        
     }
     
     // -> DEBUG METHOD
 
         public static void debug(java.util.function.Function<Object,Object> sad)
         {
-            if(true)
+            if(true) // true for all debugs on
             {
             sad.apply(null);
             }
@@ -42,6 +40,21 @@ public class DOM {
     // <- DEBUG METHOD
     
     public static Tree default_extract(String uri){
+        try {
+            BufferedWriter doc = new BufferedWriter(new FileWriter("pagina"));
+            doc.write("");
+            doc.close();
+            BufferedWriter doc2 = new BufferedWriter(new FileWriter("paginareal"));
+            doc2.write("");
+            doc2.close();
+            BufferedWriter doc3 = new BufferedWriter(new FileWriter("codigo_fuente"));
+            doc3.write("");
+            doc3.close();
+        } catch (Exception e) {
+            System.out.println("Error de archivo");
+            e.printStackTrace();
+        }
+        
         getCode(uri,"pagina","codigo_fuente");
         rewrite("pagina","paginareal");
         return Tree.parseTree("paginareal");
@@ -74,6 +87,7 @@ public class DOM {
         }
         catch(java.net.MalformedURLException mue){
             System.out.println("Error de formato de url");
+            JOptionPane.showMessageDialog(null, "El formato debe ser el de una URL","Formato de dirección",0);
             mue.printStackTrace();
         }
         catch(java.io.IOException ioe){
@@ -83,6 +97,7 @@ public class DOM {
         catch(Throwable t)
         {
             System.out.println("no fué posible establecer la conexión");
+            JOptionPane.showMessageDialog(null, "no fué posible establecer la conexión","Error de conexión",0);
             t.printStackTrace();
         }
     }
