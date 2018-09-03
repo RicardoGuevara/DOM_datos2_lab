@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class UserGUI extends javax.swing.JFrame {
      */
     public UserGUI() {
         initComponents();
+        tree_panel.setBackground(Color.white);
         dns.setText("file:///C:/Users/RICARDO/Desktop/DOM_datos2_lab/DOM/paginas de prueba/paginarealnofeik.html");
     }
 
@@ -294,7 +297,7 @@ public class UserGUI extends javax.swing.JFrame {
 //        kill_me_pls.setVisible(true);
 //        tree_panel.add(kill_me_pls);
             
-        tree_panel.add(new Arb_pane(kill_me_pls));
+        tree_panel.add(new Arb_pane(kill_me_pls,tree_panel.getBounds()));
         tree_panel.repaint();
             
     }
@@ -465,13 +468,43 @@ public class UserGUI extends javax.swing.JFrame {
 
 class Arb_pane extends javax.swing.JPanel
 {
-    public Arb_pane(JTree arbol)
+    public Arb_pane(JTree arbol, Rectangle space)
     {
-        this.setBackground(Color.red);
+        space.setLocation(0, 0);
         setLayout(new BorderLayout());
         arbol.setVisible(true);
+        arbol.setBounds(space);
         add(arbol,BorderLayout.NORTH);
         setVisible(true);
-        setBounds(0,0,100,100);
+        setBounds(space);
+        
+        arbol.addMouseListener(new java.awt.event.MouseListener() {
+            
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setBounds(space);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+               
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
     }
 }

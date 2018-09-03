@@ -79,6 +79,9 @@ public class Tree {
         }
         catch(IndexOutOfBoundsException e)
         {
+            while(aperturas.size()>1){
+                (aperturas.get(aperturas.size()-2)).add(aperturas.remove(aperturas.size()-1));
+            }
             return new Tree(aperturas.get(0));
         }
         catch (Exception e){
