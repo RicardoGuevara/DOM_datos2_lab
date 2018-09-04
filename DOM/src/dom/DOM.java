@@ -71,8 +71,12 @@ public class DOM {
                 while(txt.contains(">"))
                 {
                     if(!txt.startsWith("<")){
-                        if(txt.startsWith("<=")) txt = txt.substring(1);
                         txt = txt.substring(txt.indexOf("<"));
+                        if(txt.startsWith("<="))
+                        {
+                            txt = txt.substring(1);
+                            txt = txt.substring(txt.indexOf("<"));
+                        } 
                     }
                     fuente.write(txt.substring(0,txt.indexOf(">")+1));
                     doc.write(get_label(txt.substring(0,txt.indexOf(">")+1)));
