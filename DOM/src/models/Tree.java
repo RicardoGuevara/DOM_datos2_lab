@@ -60,6 +60,12 @@ public class Tree {
                 if(txt.startsWith("/")){
                     //temp = aperturas.remove(aperturas.size()-1);
                     System.out.println("cierre "+aperturas.get(aperturas.size()-1));
+                    
+                    if (aperturas.size()==1) 
+                    {
+                        return new Tree(aperturas.get(0));
+                    }
+                    
                     (aperturas.get(aperturas.size()-2)).add(aperturas.remove(aperturas.size()-1));
                     
                 }
@@ -93,6 +99,7 @@ public class Tree {
             (aperturas.get(aperturas.size()-2)).add(aperturas.remove(aperturas.size()-1));
         }
         
+        System.out.println(aperturas);
         return new Tree(aperturas.get(0));
     } 
     

@@ -72,7 +72,7 @@ public class DOM {
                 {
                     if(!txt.startsWith("<")){
                         try {txt = txt.substring(txt.indexOf("<"));} 
-                        catch (StringIndexOutOfBoundsException ste){continue;}
+                        catch (StringIndexOutOfBoundsException ste){break;}
                         
                         if(txt.startsWith("<="))
                         {
