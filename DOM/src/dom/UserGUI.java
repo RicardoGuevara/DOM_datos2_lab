@@ -275,9 +275,10 @@ public class UserGUI extends javax.swing.JFrame {
             {
                 try 
                 {
+                    //drawDefaultTree();
                     draw_tree();
                 } 
-                catch (IOException ex) 
+                catch (Exception ex) 
                 {
                     System.out.println("error de archivo");
                     ex.printStackTrace();
