@@ -13,6 +13,11 @@ public class Cont {
     private String name;
     private int cy;
 
+    public Cont(String name) {
+        this.name = name;
+        this.cy = 1;
+    }
+    
     public String getName() {
         return name;
     }
@@ -29,10 +34,16 @@ public class Cont {
         this.cy = cy;
     }
 
-    public Cont(String name) {
-        this.name = name;
-        this.cy = 0;
+    public void up()
+    {
+        this.cy++;
+        System.out.println(this.name+" "+this.cy);
     }
-    
+
+    @Override
+    public String toString()
+    {
+        return this.name+"      n: "+this.cy;
+    }
     
 }

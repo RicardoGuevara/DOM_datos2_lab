@@ -16,8 +16,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import models.Cont;
 import models.Node;
 import models.Tree;
 
@@ -71,6 +73,9 @@ public class UserGUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         labels_parsed = new javax.swing.JTextArea();
         tree_panel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        visual_conts = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,9 +101,10 @@ public class UserGUI extends javax.swing.JFrame {
             }
         });
 
+        labels_original.setEditable(false);
         labels_original.setColumns(20);
         labels_original.setRows(5);
-        labels_original.setPreferredSize(new java.awt.Dimension(271, 238));
+        labels_original.setPreferredSize(new java.awt.Dimension(270, 238));
         jScrollPane3.setViewportView(labels_original);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -114,15 +120,16 @@ public class UserGUI extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGap(0, 246, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Original", jPanel4);
 
+        labels_parsed.setEditable(false);
         labels_parsed.setColumns(20);
         labels_parsed.setRows(5);
         labels_parsed.setPreferredSize(new java.awt.Dimension(261, 238));
@@ -141,11 +148,11 @@ public class UserGUI extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGap(0, 246, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Gerarquía de etiquetas", jPanel3);
@@ -158,8 +165,13 @@ public class UserGUI extends javax.swing.JFrame {
         );
         tree_panelLayout.setVerticalGroup(
             tree_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 546, Short.MAX_VALUE)
         );
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("CONCURRENCIA DE ETIQUETAS:");
+
+        jScrollPane1.setViewportView(visual_conts);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,7 +185,15 @@ public class UserGUI extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jButton1))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tree_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -189,10 +209,16 @@ public class UserGUI extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(graphTree, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(graphTree, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tree_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tree_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1)))
                         .addContainerGap())))
         );
 
@@ -215,6 +241,7 @@ public class UserGUI extends javax.swing.JFrame {
             System.out.println("error in waiting :"); ex.printStackTrace();
         }
         run_3.run();
+        run_4.run();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -286,7 +313,37 @@ public class UserGUI extends javax.swing.JFrame {
             }
         };
     
+    Runnable run_4 = new Runnable() 
+        {
+            public void run() 
+            {
+                try 
+                {
+                    //drawDefaultTree();
+                    show_conts(tree.components_conts());
+                } 
+                catch (Exception ex) 
+                {
+                    System.out.println("error de archivo");
+                    ex.printStackTrace();
+                }
+            }
+        };
+    
+    
     //METHODS___________________________________________________________________
+    
+    private void show_conts(ArrayList<models.Cont> conts)
+    {
+        System.out.println("contadores: "+conts);
+        
+        DefaultListModel lista = new DefaultListModel();
+        for (Cont cont : conts) 
+        {
+            lista.addElement(cont.toString());
+        }
+        visual_conts.setModel(lista);
+    }
     
     private void fill_original() throws java.io.IOException
     {
@@ -476,14 +533,17 @@ public class UserGUI extends javax.swing.JFrame {
     private javax.swing.JPanel graphTree;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea labels_original;
     private javax.swing.JTextArea labels_parsed;
     private javax.swing.JPanel tree_panel;
+    private javax.swing.JList<String> visual_conts;
     // End of variables declaration//GEN-END:variables
 }
 

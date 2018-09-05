@@ -140,6 +140,39 @@ public class Tree {
         }
     }
     
+    ArrayList<Cont> conts;
+    public ArrayList<Cont> components_conts()
+    {
+        conts = new ArrayList<models.Cont>();
+        contar(this.root);
+        return conts;
+    }
+    
+    private void contar(Node node)
+    {
+        if(!search_and_up(node.getLabel_name()))
+        {
+            conts.add(new Cont(node.getLabel_name()));
+        }
+        
+        for (Node subNode : node.subNodes) 
+        {
+            contar(subNode);
+        }
+    }
+    
+    private boolean search_and_up(String s)
+    {
+        for (Cont cont : conts) 
+        {
+            if (cont.getName().equals(s)) {
+                cont.up();
+                return true;
+            }
+        }
+        return false;
+    }
+    
 //ATRIB_________________________________________________________________________    
     
     private Node root;

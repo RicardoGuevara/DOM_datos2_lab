@@ -71,7 +71,9 @@ public class DOM {
                 while(txt.contains(">"))
                 {
                     if(!txt.startsWith("<")){
-                        txt = txt.substring(txt.indexOf("<"));
+                        try {txt = txt.substring(txt.indexOf("<"));} 
+                        catch (StringIndexOutOfBoundsException ste){continue;}
+                        
                         if(txt.startsWith("<="))
                         {
                             txt = txt.substring(1);
