@@ -54,13 +54,13 @@ public class Tree {
             String txt;
             while((txt = reader.readLine()) != null){
                 
-                System.out.println("lectura: "+txt);
+                //System.out.println("lectura: "+txt);
                 
                 if(txt.contains("!DOCTYPE")||txt.contains("!doctype")|| txt.contains("br")|| txt.contains("nobr")|| txt.contains("--")){continue;}
                 if(txt.equals("html")){aperturas.add(new Node("html"));continue;}
                 if(txt.startsWith("/")){
                     //temp = aperturas.remove(aperturas.size()-1);
-                    System.out.println("cierre "+aperturas.get(aperturas.size()-1));
+                    //System.out.println("cierre "+aperturas.get(aperturas.size()-1));
                     
                     if (aperturas.size()==1) 
                     {
@@ -73,9 +73,9 @@ public class Tree {
                 else{
                     aperturas.add(new Node(txt));
                     aperturas.get(aperturas.size()-1).setNivel(aperturas.size()-1);
-                    System.out.println("apertura "+aperturas.get(aperturas.size()-1));
+                    //System.out.println("apertura "+aperturas.get(aperturas.size()-1));
                 }
-                System.out.println(aperturas);
+                //System.out.println(aperturas);
                 //(new Tree(aperturas.get(aperturas.size()-1))).printTree();
             }
             reader.close();

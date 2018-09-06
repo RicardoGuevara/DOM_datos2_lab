@@ -43,7 +43,7 @@ public class Node {
         levelup(node,1);
         node.setHorizontal(this.subNodes.size());
         this.subNodes.add(node);
-        System.out.println("nivel / pos_grado "+node.getNivel()+" "+node.getHorizontal());
+        //System.out.println("nivel / pos_grado "+node.getNivel()+" "+node.getHorizontal());
     }
     
     public void add(String ob){
