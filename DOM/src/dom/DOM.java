@@ -96,6 +96,11 @@ public class DOM {
             JOptionPane.showMessageDialog(null, "El formato debe ser el de una URL","Formato de dirección",0);
             mue.printStackTrace();
         }
+        catch(java.io.FileNotFoundException mue){
+            System.out.println("Error de formato de url");
+            JOptionPane.showMessageDialog(null, "Por favor verifique la URL","Formato de dirección",0);
+            mue.printStackTrace();
+        }
         catch(java.io.IOException ioe){
             System.out.println("Error de archivo");
             ioe.printStackTrace();

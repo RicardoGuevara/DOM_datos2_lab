@@ -6,6 +6,7 @@
 package models;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -55,7 +56,7 @@ public class Tree {
                 
                 System.out.println("lectura: "+txt);
                 
-                if(txt.contains("!DOCTYPE")||txt.contains("!doctype")|| txt.contains("br")|| txt.contains("nobr")){continue;}
+                if(txt.contains("!DOCTYPE")||txt.contains("!doctype")|| txt.contains("br")|| txt.contains("nobr")|| txt.contains("--")){continue;}
                 if(txt.equals("html")){aperturas.add(new Node("html"));continue;}
                 if(txt.startsWith("/")){
                     //temp = aperturas.remove(aperturas.size()-1);
@@ -99,8 +100,13 @@ public class Tree {
             (aperturas.get(aperturas.size()-2)).add(aperturas.remove(aperturas.size()-1));
         }
         
-        System.out.println(aperturas);
-        return new Tree(aperturas.get(0));
+        try 
+        {
+            return new Tree(aperturas.get(0));
+        } catch (IndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "Verifique el protocolo de la URL (http / https)","Error de conexión",0); 
+            return new Tree(new Node("Pagina no encontrada"));
+        }
     } 
     
     public int altura()

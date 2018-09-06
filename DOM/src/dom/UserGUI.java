@@ -42,7 +42,9 @@ public class UserGUI extends javax.swing.JFrame {
     {
         try {
             java.io.File file = new java.io.File("paginarealnofeik.html");
-            return "file://"+file.getAbsolutePath();
+            return (System.getProperties().getProperty("os.name").equals("Mac OS X"))? //ask for OS name 
+                        "file://"+file.getAbsolutePath()        // for a mac
+                        :"file:\\\\\\"+file.getAbsolutePath();  // for any windows
         } catch (Exception e) 
         {
             System.out.println("Error de archivo");
@@ -91,6 +93,12 @@ public class UserGUI extends javax.swing.JFrame {
             graphTreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        dns.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dnsKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("DNS / IP :");
 
@@ -226,7 +234,20 @@ public class UserGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
+        
+        doall();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void dnsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dnsKeyTyped
+        if (evt.getKeyChar()=='\n')
+        {
+            doall();
+        }
+    }//GEN-LAST:event_dnsKeyTyped
+
+    private void doall()
+    {
         tree = DOM.default_extract(dns.getText());
         tree.printTree();
         run_0.run();
@@ -242,9 +263,8 @@ public class UserGUI extends javax.swing.JFrame {
         }
         run_3.run();
         run_4.run();
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    }
+    
     //THREADS
     
     Runnable run_0 = new Runnable() 
